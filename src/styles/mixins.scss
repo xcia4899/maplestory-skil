@@ -1,0 +1,16 @@
+@mixin centerGrid {
+  display: grid;
+  place-items: center;
+}
+
+@mixin centerFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//模糊
+@mixin bgBlur($amount: 20px) {
+  backdrop-filter: blur($amount);
+  -webkit-backdrop-filter: blur($amount);
+}

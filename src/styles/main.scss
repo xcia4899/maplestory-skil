@@ -1,0 +1,25 @@
+// @use "./variables" as *;
+// @use "./mixins" as *;
+
+:root { --gap: #{$gap}; }
+
+.btn {
+  background: $brand;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+}
+h1,h2,h3,h4,h5,h6{
+  @include centerFlex
+}
