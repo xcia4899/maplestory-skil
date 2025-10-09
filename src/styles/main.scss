@@ -21,5 +21,11 @@ body {
   line-height: 1.5;
 }
 h1,h2,h3,h4,h5,h6{
-  @include centerFlex
+  @include centerFlex;
+  white-space: nowrap;
+}
+span{
+  text-align: center;      // 文字水平置中
+  vertical-align: middle;  // 若與其他行內元素並列，垂直置中
+  white-space: nowrap;
 }
