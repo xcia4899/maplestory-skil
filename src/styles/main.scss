@@ -29,3 +29,8 @@ span{
   vertical-align: middle;  // 若與其他行內元素並列，垂直置中
   white-space: nowrap;
 }
+a{
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}

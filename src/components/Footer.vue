@@ -2,7 +2,7 @@
   <section id="footer">
     <h4>MapleStory Skill Simulator</h4>
     <h4>楓之谷技能模擬器</h4>
-    <p>作者：<a href="" target="blank">XXXX</a></p>
+    <p>作者：<a  target="blank">XXXX</a></p>
   </section>
 </template>
 
