@@ -1,21 +1,41 @@
 <template>
   <section id="content">
-    <div class="skilCard">
+    <div class="skillCard">
       <div class="header">技能欄</div>
 
-      <div class="skilContent">
+      <div class="skillContent">
         <nav class="profession">
-          <a class="active">初心者</a>
-          <a>一轉</a>
-          <a>二轉</a>
+          <router-link
+            :to="{
+              name: 'skill',
+              params: {
+                stage: 'A',
+              },
+            }"
+            class="link"
+            >初心者
+          </router-link>
+          <router-link :to="{
+              name: 'skill',
+              params: {
+                stage: 'B',
+              },
+            }" class="link">
+            一轉
+          </router-link>
+         
           <a>三轉</a>
           <a>四轉</a>
         </nav>
         <div class="title">
-          <img src="" alt="" />
+          <img src="@/assets/bullet.png" alt="" />
           <div><h3>海盜之路</h3></div>
         </div>
-        <div class="skilArea">技能頁面</div>
+        <ul class="skillArea">
+          
+            <router-view></router-view>
+          
+        </ul>
       </div>
 
       <li class="footer">技能點數<span>3</span></li>
@@ -23,81 +43,113 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { reactive, defineProps } from "vue";
+
+const skillList = reactive([
+ {
+    id: "pre01",
+    name: "嫩寶丟擲術",
+    count: 1,
+    img: new URL("@/assets/skil/10001.jpg", import.meta.url).href,
+  },
+  {
+    id: "pre02",
+    name: "紅寶丟擲術",
+    count: 4,
+    img: new URL("@/assets/skil/10002.jpg", import.meta.url).href,
+  },
+]);
+</script>
 
 <style scoped lang="scss">
-* {
-  // border: 1px solid red;
-}
 #content {
   min-height: 600px;
   @include centerFlex;
 }
-.skilCard {
+
+.skillCard {
   position: relative;
-  height: 460px;
+  min-height: 460px;
   width: 300px;
-  background-color: #91c6e7;
+  background-color: $color-white;
   padding: 4px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 3px 4px 6px 2px #333333;
- 
+  box-shadow: 3px 4px 6px 3px $color-black, inset 0 0px 0px 2px #565d61;
+  border-radius: 8px;
+
   overflow: hidden;
+
   .header {
     @include centerFlex;
     justify-content: flex-start;
     padding: 0px 8px;
-    background-color: #f7fbfd;
-    box-shadow: 0 1px 4px 0.6px #a6b1b8;
+    background-color: $color-white;
+    box-shadow: inset 0 5px 2px 0.2px $color-white,
+      0 0px 2px 1px $color-darkBlue;
     border-radius: 4px;
+    user-select: none;
   }
-  .skilContent {
+  .skillContent {
     flex: 1;
     display: flex;
     flex-direction: column;
     margin-top: 4px;
 
-    box-shadow: inset 0 -2px 6px 0px #bdced8;
+    border-radius: 4px 4px 0 0;
+    box-shadow: inset 0 5px 2px 0.2px $color-white,
+      0 0px 2px 1px $color-darkBlue;
     .profession {
       display: flex;
       position: relative;
-
+      .link,
       a {
         @include centerFlex;
         // flex: 0.5;
         width: 20%;
         padding: 4px;
-        color: #fff;
-        background-color: #949494;
-        border: 1px solid #020424;
+        color: $color-white;
+        background-color: #a09f9f;
+        // border: 1px solid #020424;
 
         border-radius: 6px 6px 0 0;
-        box-shadow: inset 0 1px 1px 2px rgba(248, 248, 248, 1);
+        box-shadow: inset 0 1px 2px 3px $color-white, 0 0 2px 1px #020424;
+        user-select: none;
       }
-      a.active {
-        background-color: #db86a7;
+      //代表「部分匹配」的狀態。
+      :deep(.router-link-active) {
+        color: #f07c7c;
+        background-color: #ffe3ea;
+      }
+      // 代表「完全匹配」的狀態。
+      :deep(.router-link-exact-active) {
+        font-weight: bold;
       }
     }
     .title {
-      background-color: #eee;
+      background-color: $color-gray;
 
       padding: 12px 8px 6px;
       transform: translateY(-1px);
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      box-shadow: 0 2px 6px 0px rgb(104, 104, 104, 0.6);
+      box-shadow: 0 2px 3px 0px rgba(124, 125, 126, 0.6);
+      user-select: none;
       img {
         height: 50px;
         width: 60px;
-        background-color: #d4873f;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: $color-white;
+        box-shadow: inset 0 0px 1px 2px rgba(124, 125, 126, 0.6);
       }
       div {
         @include centerFlex;
         height: 50px;
-        border: 0px solid black;
+        border: 0px solid $color-black;
         border-width: 1px 1px 1px 0px;
         padding: 6px 1px;
         flex: 1;
@@ -106,17 +158,36 @@
         h3 {
           width: 100%;
           text-align: center;
-          background-color: #4a494d;
+          background-color: $color-black;
           color: #eaf7ff;
           border-radius: 0px 4px 4px 0px;
         }
       }
     }
-    .skilArea {
+    .skillArea {
       flex: 1;
       overflow-y: scroll;
-      background: #e4e4e4;
+      scrollbar-gutter: stable;
+      background: $color-white;
       padding: 8px;
+      max-height: 300px;
+      min-height: 300px;
+      .skillItem {
+        width: 100%;
+        display: flex;
+        height: 64px;
+      }
+    }
+    /* Chrome / Edge / Safari */
+    .skillArea::-webkit-scrollbar {
+      width: 12px; /* 必設，否則看不出差異 */
+    }
+    .skillArea::-webkit-scrollbar-thumb {
+      background: $color-darkBlue;
+      border-radius: 4px;
+    }
+    .skillArea::-webkit-scrollbar-track {
+      background: $color-blue;
     }
   }
   .footer {
@@ -129,18 +200,22 @@
     padding: 4px 20px;
     // margin: 0 4px 2px;
     margin-bottom: 2px;
-    background-color: #c0e4fa;
+    background-color: $color-blue;
     border-radius: 0 0 6px 6px;
-    box-shadow: inset 0 5px 2px 0.2px #eaf7ff;
+    box-shadow: inset 0 5px 2px 0.2px $color-white,
+      0 0px 2px 1px $color-darkBlue;
+    user-select: none;
+
     span {
       width: 60px;
       margin-left: 12px;
-      border: 1px solid #020424;
-      background-color: #fff;
+      border: 1px solid $color-black;
+      background-color: $color-white;
       border-radius: 2px;
       padding: 0px 8px;
-      box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 0 2px 1px rgba(12, 12, 12, 0.6);
       text-align: right;
+      user-select: none;
     }
   }
   .footer::before {
