@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <section id="content">
     <div class="skillCard">
-      <div class="header">技能欄</div>
+      <div class="header">技能攔</div>
 
       <div class="skillContent">
         <nav class="profession">
@@ -9,7 +9,7 @@
             :to="{
               name: 'skill',
               params: {
-                stage: 'A',
+                stage: 'PRE0',
               },
             }"
             class="link"
@@ -18,48 +18,63 @@
           <router-link :to="{
               name: 'skill',
               params: {
-                stage: 'B',
+                stage: 'PRE1',
               },
             }" class="link">
             一轉
           </router-link>
-         
-          <a>三轉</a>
-          <a>四轉</a>
+          <router-link :to="{
+              name: 'skill',
+              params: {
+                stage: 'PRE2',
+              },
+            }" class="link">
+            二轉
+          </router-link>
+          <router-link :to="{
+              name: 'skill',
+              params: {
+                stage: 'PRE3',
+              },
+            }" class="link">
+            三轉
+          </router-link>
+          <router-link :to="{
+              name: 'skill',
+              params: {
+                stage: 'PRE4',
+              },
+            }" class="link">
+            四轉
+          </router-link>
         </nav>
         <div class="title">
           <img src="@/assets/bullet.png" alt="" />
           <div><h3>海盜之路</h3></div>
         </div>
         <ul class="skillArea">
-          
             <router-view></router-view>
-          
         </ul>
       </div>
-
-      <li class="footer">技能點數<span>3</span></li>
+      
+      <li class="footer">技能點數<span>{{currentAllNum}}</span></li>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { reactive, defineProps } from "vue";
+import { computed } from "vue";
+import {useRoute } from 'vue-router';
+import { useCounterStore } from "@/stores/counter";
 
-const skillList = reactive([
- {
-    id: "pre01",
-    name: "嫩寶丟擲術",
-    count: 1,
-    img: new URL("@/assets/skil/10001.jpg", import.meta.url).href,
-  },
-  {
-    id: "pre02",
-    name: "紅寶丟擲術",
-    count: 4,
-    img: new URL("@/assets/skil/10002.jpg", import.meta.url).href,
-  },
-]);
+const route = useRoute()
+const countStore =useCounterStore()
+
+const currentAllNum = computed(() => {
+  const stage = (route.params.stage as string) || "PRE0";
+  return countStore.skillList.find((s) => s.stage === stage)?.allNum ?? 0;
+});
+
 </script>
 
 <style scoped lang="scss">
@@ -118,12 +133,12 @@ const skillList = reactive([
         box-shadow: inset 0 1px 2px 3px $color-white, 0 0 2px 1px #020424;
         user-select: none;
       }
-      //代表「部分匹配」的狀態。
+      //隞?”???????
       :deep(.router-link-active) {
         color: #f07c7c;
         background-color: #ffe3ea;
       }
-      // 代表「完全匹配」的狀態。
+      // 隞?”???典?????
       :deep(.router-link-exact-active) {
         font-weight: bold;
       }
@@ -180,7 +195,7 @@ const skillList = reactive([
     }
     /* Chrome / Edge / Safari */
     .skillArea::-webkit-scrollbar {
-      width: 12px; /* 必設，否則看不出差異 */
+      width: 12px; /* 敹身嚗??銝撌桃 */
     }
     .skillArea::-webkit-scrollbar-thumb {
       background: $color-darkBlue;
@@ -195,7 +210,7 @@ const skillList = reactive([
     bottom: 0px;
     left: 0px;
     right: 0px;
-    display: flex; /* 讓點與文字同行 */
+    display: flex; /* 霈???摮?銵?*/
     align-items: center;
     padding: 4px 20px;
     // margin: 0 4px 2px;
@@ -218,7 +233,7 @@ const skillList = reactive([
       user-select: none;
     }
   }
-  .footer::before {
+   .footer::before {
     content: "•"; /* 黑點符號 */
     margin-right: 6px;
     font-size: 1.4em;
@@ -227,3 +242,6 @@ const skillList = reactive([
   }
 }
 </style>
+
+
+

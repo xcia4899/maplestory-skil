@@ -1,62 +1,35 @@
-<template>
-  <li v-for="skill in newSkilList" :key="skill.content.id" class="skillItem">
+﻿<template>
+  <li v-for="skill in newSkilList" :key="skill.id" class="skillItem">
     <div class="itemIcon">
-      <img :src="skill.content.img" alt="" />
+      <img :src="skill.img" alt="" />
     </div>
     <div class="itemDetail">
-      <div class="itemTitle">{{ skill.content.name }}</div>
+      <div class="itemTitle">{{ skill.name }}</div>
       <div class="itemContent">
-        <div class="itemNum">{{ skill.content.count }}</div>
-        <button @click="add(skill.content)" class="btnUpdateSkill"></button>
+        <div class="itemNum">{{ skill.count }}</div>
+        <button @click="add(skill)" class="btnUpdateSkill"></button>
       </div>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch } from "vue";
-import { useRoute } from "vue-router";
+import { ref, reactive, computed } from "vue";
+import { useCounterStore } from "@/stores/counter"
+import type { SkillContent } from '@/types/skill';
+
+
+const countStore = useCounterStore()
+const { add } = countStore;
+
 const props = defineProps<{
   stage: string;
 }>();
-const skilNum = ref(0);
-interface SkillContent {
-  id: string;
-  name: string;
-  count: number;
-  img: string;
-}
-interface SkillItem {
-  stage: string;
-  content: SkillContent;
-}
-const skillList = reactive<SkillItem[]>([
-  {
-    stage: "A",
-    content: {
-      id: "pre01",
-      name: "嫩寶丟擲",
-      count: 0,
-      img: new URL("@/assets/skil/10001.jpg", import.meta.url).href,
-    },
-  },
-  {
-    stage: "B",
-    content: {
-      id: "pre02",
-      name: "紅寶丟擲",
-      count: 0,
-      img: new URL("@/assets/skil/10002.jpg", import.meta.url).href,
-    },
-  },
-]);
 
-const add = (skill: SkillContent) => {
-  skill.count += 1;
-};
-const newSkilList = computed(() =>
-  skillList.filter((val) => val.stage === props.stage)
+const newSkilList = computed<SkillContent[]>(
+  () => countStore.skillList.find(s => s.stage === props.stage)?.content ?? []
 );
+
 </script>
 
 <style scoped lang="scss">
@@ -103,3 +76,7 @@ const newSkilList = computed(() =>
   }
 }
 </style>
+
+
+
+
