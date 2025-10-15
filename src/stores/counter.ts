@@ -87,7 +87,6 @@ export const useCounterStore = defineStore("counter", () => {
   const initialNum: Record<string, number> = Object.fromEntries(
     list.map((s) => [s.stage, s.allNum])
   );
-
   // 計算該階段剩餘點數 = 初始配額 - 已分配
   const getAllNum = (stage: string): number => {
     const stageItem = skillList.find((s) => s.stage === stage);
