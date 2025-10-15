@@ -7,7 +7,10 @@
       <div class="itemTitle">{{ skill.name }}</div>
       <div class="itemContent">
         <div class="itemNum">{{ skill.count }}</div>
-        <button @click="add(skill)" class="btnUpdateSkill"></button>
+        <div>
+          <button @click="add(skill)" class="btnUpdateSkill">+</button>
+          <button @click="reduce(skill)" class="btnUpdateSkill">-</button>
+        </div>
       </div>
     </div>
   </li>
@@ -17,17 +20,19 @@
 import { ref, reactive, computed } from "vue";
 import { useCounterStore } from "@/stores/counter"
 import type { SkillContent } from '@/types/skill';
+import {useRoute } from 'vue-router';
 
-
+const route = useRoute()
 const countStore = useCounterStore()
-const { add } = countStore;
+const { add,skillList,reduce} = countStore;
+const stage = (route.params.stage as string) || "PRE0";
 
 const props = defineProps<{
   stage: string;
 }>();
 
 const newSkilList = computed<SkillContent[]>(
-  () => countStore.skillList.find(s => s.stage === props.stage)?.content ?? []
+  () => skillList.find(s => s.stage === props.stage)?.content ?? []
 );
 
 </script>

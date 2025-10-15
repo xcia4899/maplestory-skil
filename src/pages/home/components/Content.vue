@@ -57,22 +57,25 @@
         </ul>
       </div>
       
-      <li class="footer">技能點數<span>{{currentAllNum}}</span></li>
+      <li class="footer">技能點數
+        <span>{{currentAllNum}}</span>
+        <button @click="countStore.clearAll">全部重置</button>
+      </li>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import {useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useCounterStore } from "@/stores/counter";
 
-const route = useRoute()
-const countStore =useCounterStore()
+const route = useRoute();
+const countStore = useCounterStore();
 
 const currentAllNum = computed(() => {
-  const stage = (route.params.stage as string) || "PRE0";
-  return countStore.skillList.find((s) => s.stage === stage)?.allNum ?? 0;
+  const stage = (route.params.stage as string) || 'PRE0';
+  return countStore.getAllNum(stage);
 });
 
 </script>
@@ -231,6 +234,10 @@ const currentAllNum = computed(() => {
       box-shadow: inset 0 0 2px 1px rgba(12, 12, 12, 0.6);
       text-align: right;
       user-select: none;
+    }
+    button{
+       margin-left: auto;
+    //  align-self: flex-end;
     }
   }
    .footer::before {

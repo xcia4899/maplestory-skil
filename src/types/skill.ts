@@ -5,7 +5,7 @@ export interface SkillContent {
   img: string;
 }
 
-export interface SkillItem {
+export interface Skill {
   stage: string;
   allNum: number;
   content: SkillContent[];
