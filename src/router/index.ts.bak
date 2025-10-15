@@ -1,0 +1,27 @@
+﻿import { createRouter, createWebHistory } from "vue-router";
+
+import Skill from "@/pages/home/subpages/Skill.vue";
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      name: "skill",
+      path: "/Skill/:stage?",
+      component: Skill,
+      props: true,
+      beforeEnter: (to) => {
+        const validStages = ["PRE0", "PRE1"]; // 可用階段
+        if (!validStages.includes(String(to.params.stage))) {
+          // 阻止進入並導回首頁
+          console.log("不能進入")
+          return { path: "/" };
+
+        }
+        return true;
+      },
+    },
+  ],
+});
+
+export default router;

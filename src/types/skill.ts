@@ -7,6 +7,7 @@ export interface SkillContent {
 
 export interface Skill {
   stage: string;
+  title: string;
   allNum: number;
   content: SkillContent[];
 }

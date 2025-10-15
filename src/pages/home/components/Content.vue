@@ -50,7 +50,7 @@
         </nav>
         <div class="title">
           <img src="@/assets/bullet.png" alt="" />
-          <div><h3>海盜之路</h3></div>
+          <div><h3>{{ currentTitle }}</h3></div>
         </div>
         <ul class="skillArea">
             <router-view></router-view>
@@ -73,9 +73,19 @@ import { useCounterStore } from "@/stores/counter";
 const route = useRoute();
 const countStore = useCounterStore();
 
+// 建立一個可自動更新取得當前階段的剩餘點數
 const currentAllNum = computed(() => {
+  // 取得目前路由參數中的 stage，若無（例如初次載入）則預設為 'PRE0'
   const stage = (route.params.stage as string) || 'PRE0';
+  // 向 Pinia store 呼叫 getAllNum(stage)
+  // 取得該階段的剩餘可分配點數（已加點數會被扣除）
   return countStore.getAllNum(stage);
+});
+
+const currentTitle = computed(() => {
+  const stage = (route.params.stage as string) || 'PRE0';
+  // 向 Pinia store 呼叫 getTitle(stage)
+  return countStore.getTitle(stage);
 });
 
 </script>

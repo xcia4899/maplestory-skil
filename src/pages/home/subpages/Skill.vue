@@ -1,4 +1,6 @@
-﻿<template>
+﻿
+<template>
+  <li v-if="newSkilList.length === 0" class="empty">未轉職</li>
   <li v-for="skill in newSkilList" :key="skill.id" class="skillItem">
     <div class="itemIcon">
       <img :src="skill.img" alt="" />
@@ -14,6 +16,7 @@
       </div>
     </div>
   </li>
+  
 </template>
 
 <script setup lang="ts">
@@ -38,6 +41,10 @@ const newSkilList = computed<SkillContent[]>(
 </script>
 
 <style scoped lang="scss">
+.empty{
+  // text-align: center;
+  padding: 8px 4px;
+}
 .skillItem {
   width: 100%;
   display: flex;
