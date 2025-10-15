@@ -14,16 +14,5 @@ const router = createRouter({
   ],
 });
 
-// 全域守衛：僅允許 PRE0 / PRE1，否則導向 PRE0
-// const allowedStages = new Set(["PRE0", "PRE1"]);
-// router.beforeEach((to) => {
-//   if (to.name === "skill") {
-//     const stage = to.params.stage as string | undefined;
-//     if (!stage || !allowedStages.has(stage)) {
-//       return { name: "skill", params: { stage: "PRE0" } };
-//     }
-//   }
-//   return true;
-// });
 
 export default router;
