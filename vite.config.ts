@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+   base: '/maplestory-skil/', // ← 關鍵：加上你的 repo 名稱
   plugins: [
     vue(),
     vueDevTools(),
