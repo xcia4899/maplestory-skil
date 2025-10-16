@@ -1,0 +1,77 @@
+[
+  {
+    "stage": "PRE1",
+    "title": "弓箭之路",
+    "allNum": 50,
+    "content": [
+      {
+        "id": "pre01-01",
+        "name": "連射",
+        "count": 0,
+        "img": "@/assets/skil/10005.jpg"
+      },
+      {
+        "id": "pre01-02",
+        "name": "鷹眼",
+        "count": 0,
+        "img": "@/assets/skil/10006.jpg"
+      },
+      {
+        "id": "pre01-03",
+        "name": "強力射擊",
+        "count": 0,
+        "img": "@/assets/skil/10007.jpg"
+      }
+    ]
+  },
+  {
+    "stage": "PRE2",
+    "title": "見習遊俠",
+    "allNum": 60,
+    "content": [
+      {
+        "id": "pre02-01",
+        "name": "無限彈藥",
+        "count": 0,
+        "img": "@/assets/skil/10016.jpg"
+      },
+      {
+        "id": "pre02-02",
+        "name": "快速移動",
+        "count": 0,
+        "img": "@/assets/skil/10015.jpg"
+      },
+      {
+        "id": "pre02-03",
+        "name": "精準射擊",
+        "count": 0,
+        "img": "@/assets/skil/10014.jpg"
+      }
+    ]
+  },
+  {
+    "stage": "PRE3",
+    "title": "遊俠",
+    "allNum": 70,
+    "content": [
+      {
+        "id": "pre03-01",
+        "name": "強力射擊",
+        "count": 0,
+        "img": "@/assets/skil/10016.jpg"
+      },
+      {
+        "id": "pre03-02",
+        "name": "箭雨",
+        "count": 0,
+        "img": "@/assets/skil/10015.jpg"
+      },
+      {
+        "id": "pre03-03",
+        "name": "爆炸射擊",
+        "count": 0,
+        "img": "@/assets/skil/10014.jpg"
+      }
+    ]
+  }
+]
