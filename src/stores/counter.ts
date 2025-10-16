@@ -83,7 +83,6 @@ export const useCounterStore = defineStore("counter", () => {
       ],
     },
   ];
-
   const Sword = [
     {
       stage: "PRE1",
@@ -136,7 +135,237 @@ export const useCounterStore = defineStore("counter", () => {
       ],
     },
   ];
-
+  const mage = [
+    {
+      stage: "PRE1",
+      title: "魔法之路",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "魔力爪",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "魔靈但",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "魔力之盾",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "資深法師",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "落雷",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "冰風暴",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "火焰噴射",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE3",
+      title: "大法師",
+      allNum: 70,
+      content: [
+        {
+          id: "pre03-01",
+          name: "元素風暴",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-02",
+          name: "魔力強化",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-03",
+          name: "專精魔力",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
+   const archer = [
+    {
+      stage: "PRE1",
+      title: "弓箭之路",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "連射",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "鷹眼",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "強力射擊",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "見習遊俠",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "無限彈藥",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "快速移動",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "精準射擊",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE3",
+      title: "遊俠",
+      allNum: 70,
+      content: [
+        {
+          id: "pre03-01",
+          name: "強力射擊",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-02",
+          name: "箭雨",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-03",
+          name: "爆炸射擊",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
+   const thief = [
+    {
+      stage: "PRE1",
+      title: "盜賊之路",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "偷竊",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "看破斬",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "隱身",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "神偷",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "飛鏢投擲",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "閃現",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "高速移動",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE3",
+      title: "暗影",
+      allNum: 70,
+      content: [
+        {
+          id: "pre03-01",
+          name: "隱身斬",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-02",
+          name: "暗殺強化",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre03-03",
+          name: "中毒武器",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
   const skillList = reactive<Skill[]>([]);
 
   // 職業資料快取（保留各自加點紀錄）
@@ -189,6 +418,18 @@ export const useCounterStore = defineStore("counter", () => {
     if (profession === "劍士") {
       // 劍士包含共用 PRE0 + 劍士專屬階段
       return cloneSkills([...BasicPrelist, ...Sword]);
+    }
+    if (profession === "法師") {
+      // 劍士包含共用 PRE0 + 劍士專屬階段
+      return cloneSkills([...BasicPrelist, ...mage]);
+    }
+    if (profession === "弓箭手") {
+      // 劍士包含共用 PRE0 + 劍士專屬階段
+      return cloneSkills([...BasicPrelist, ...archer]);
+    }
+    if (profession === "盜賊") {
+      // 劍士包含共用 PRE0 + 劍士專屬階段
+      return cloneSkills([...BasicPrelist, ...thief]);
     }
     // 預設回傳基本階段
     return cloneSkills(BasicPrelist);
