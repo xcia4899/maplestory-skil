@@ -1,6 +1,7 @@
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { defineStore } from "pinia";
 import type { SkillContent, Skill } from "@/types/skill";
+import axios from "axios";
 
 export const useCounterStore = defineStore("counter", () => {
   const BasicPrelist = [
@@ -212,7 +213,7 @@ export const useCounterStore = defineStore("counter", () => {
       ],
     },
   ];
-   const archer = [
+  const archer = [
     {
       stage: "PRE1",
       title: "弓箭之路",
@@ -289,7 +290,7 @@ export const useCounterStore = defineStore("counter", () => {
       ],
     },
   ];
-   const thief = [
+  const thief = [
     {
       stage: "PRE1",
       title: "盜賊之路",
@@ -368,6 +369,15 @@ export const useCounterStore = defineStore("counter", () => {
   ];
   const skillList = reactive<Skill[]>([]);
 
+  onMounted(async () => {
+    try {
+      const res = await axios.get("data/skills/pirate.json");
+      console.log("載入成功:", res);
+    } catch (err) {
+      console.error("載入失敗:", err);
+    }
+  });
+  // loadPirateJson()
   // 職業資料快取（保留各自加點紀錄）
   const professionCache = new Map<string, Skill[]>();
 

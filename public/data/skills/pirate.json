@@ -1,0 +1,52 @@
+[
+  {
+    "stage": "PRE1",
+    "title": "海盜之路",
+    "allNum": 50,
+    "content": [
+      {
+        "id": "pre01-01",
+        "name": "炸彈丟擲",
+        "count": 0,
+        "img": "10005.jpg"
+      },
+      {
+        "id": "pre01-02",
+        "name": "魔龍丟擲",
+        "count": 0,
+        "img": "10006.jpg"
+      },
+      {
+        "id": "pre01-03",
+        "name": "子彈丟擲",
+        "count": 0,
+        "img": "10007.jpg"
+      }
+    ]
+  },
+  {
+    "stage": "PRE2",
+    "title": "老手海盜?",
+    "allNum": 60,
+    "content": [
+      {
+        "id": "pre02-01",
+        "name": "土龍丟擲",
+        "count": 0,
+        "img": "10010.jpg"
+      },
+      {
+        "id": "pre02-02",
+        "name": "章魚丟擲",
+        "count": 0,
+        "img": "10011.jpg"
+      },
+      {
+        "id": "pre02-03",
+        "name": "海鷗丟擲",
+        "count": 0,
+        "img": "10012.jpg"
+      }
+    ]
+  }
+]
