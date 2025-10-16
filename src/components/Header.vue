@@ -7,7 +7,7 @@
     
     <div class="chose">
       <h3>請選擇職業</h3>
-      <select name="job" id="job">
+      <select v-model="choosePre" name="job" id="job">
         <option value="初心者">初心者</option>
         <option value="劍士">劍士</option>
         <option value="法師">法師</option>
@@ -20,6 +20,19 @@
 </template>
 
 <script setup lang="ts">
+import { ref,computed ,watchEffect} from 'vue';
+import { useCounterStore } from '@/stores/counter';
+const choosePre = ref('初心者') // 用 ref 綁定 select 
+const countStore = useCounterStore()
+// watchEffect：自動追蹤 choosePre 的使用
+
+watchEffect(() => {
+  if (choosePre.value) {
+    // console.log('選擇變更：', choosePre.value)
+    countStore.getPre(choosePre.value)
+  }
+})
+
 
 </script>
 

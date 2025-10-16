@@ -1,9 +1,9 @@
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 import type { SkillContent, Skill } from "@/types/skill";
 
 export const useCounterStore = defineStore("counter", () => {
-  const list: Skill[] = [
+  const BasicPrelist = [
     {
       stage: "PRE0",
       title: "初心者",
@@ -29,6 +29,9 @@ export const useCounterStore = defineStore("counter", () => {
         },
       ],
     },
+  ];
+
+  const pirate = [
     {
       stage: "PRE1",
       title: "海盜之路",
@@ -36,19 +39,19 @@ export const useCounterStore = defineStore("counter", () => {
       content: [
         {
           id: "pre01-01",
-          name: "紅寶丟擲",
+          name: "炸彈丟擲",
           count: 0,
           img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
         },
         {
           id: "pre01-02",
-          name: "魔法丟擲",
+          name: "魔龍丟擲",
           count: 0,
           img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
         },
         {
           id: "pre01-03",
-          name: "猛擊丟擲",
+          name: "子彈丟擲",
           count: 0,
           img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
         },
@@ -56,24 +59,24 @@ export const useCounterStore = defineStore("counter", () => {
     },
     {
       stage: "PRE2",
-      title: "老手海盜",
+      title: "老手海盜?",
       allNum: 60,
       content: [
         {
           id: "pre02-01",
-          name: "火槍丟擲",
+          name: "土龍丟擲",
           count: 0,
           img: new URL("@/assets/skil/10010.jpg", import.meta.url).href,
         },
         {
           id: "pre02-02",
-          name: "炸彈丟擲",
+          name: "章魚丟擲",
           count: 0,
           img: new URL("@/assets/skil/10011.jpg", import.meta.url).href,
         },
         {
           id: "pre02-03",
-          name: "章魚丟擲",
+          name: "海鷗丟擲",
           count: 0,
           img: new URL("@/assets/skil/10012.jpg", import.meta.url).href,
         },
@@ -81,13 +84,129 @@ export const useCounterStore = defineStore("counter", () => {
     },
   ];
 
-  const skillList = reactive<Skill[]>(list);
+  const Sword = [
+    {
+      stage: "PRE1",
+      title: "劍士之路",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "摩天一擊",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "大劍丟擲",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "快速攻擊",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "老手劍士",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "強化",
+          count: 0,
+          img: new URL("@/assets/skil/10016.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "精準之劍",
+          count: 0,
+          img: new URL("@/assets/skil/10015.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "強壯身體",
+          count: 0,
+          img: new URL("@/assets/skil/10014.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
 
-  // 每個階段的初始配額（allNum）的快照
-  const initialNum: Record<string, number> = Object.fromEntries(
-    list.map((s) => [s.stage, s.allNum])
-  );
-  // 計算該階段剩餘點數 = 初始配額 - 已分配
+  const skillList = reactive<Skill[]>([]);
+
+  // 職業資料快取（保留各自加點紀錄）
+  const professionCache = new Map<string, Skill[]>();
+
+  //當使用者選擇新職業時執行
+  const getPre = (profession: string) => {
+    // 嘗試從快取中取得此職業的技能資料
+    let next = professionCache.get(profession);
+    // 若快取中沒有 → 新生成一份資料
+
+    if (!next) {
+      next = composeFor(profession); // 組合職業對應的技能清單
+      professionCache.set(profession, next); // 存入快取（保留加點紀錄）
+    }
+    // 用新資料更新畫面上的 skillList
+    replaceSkillList(next);
+    // 調試輸出
+    // console.log("更新後資料:", skillList);
+  };
+  // ---------- 替換技能清單 ----------
+  // 保持 skillList 響應性不變，只更新內容
+  function replaceSkillList(next: Skill[]) {
+    // → 清空原內容並插入新資料
+    skillList.splice(0, skillList.length, ...next);
+    // 重建上限快照
+    // rebuildInitialNum(skillList);
+  }
+
+  // ---------- 拷貝函式 ----------
+  // 產生一份新的技能資料副本，避免不同職業之間共享同一組物件引用
+  function cloneSkills(src: Skill[]): Skill[] {
+    return src.map((s) => ({
+      ...s, // 複製每個階段物件（stage、title、allNum 等屬性）
+      content: s.content.map((c) => ({ ...c })), // 逐一複製每個技能項，確保彼此獨立
+    }));
+  }
+
+  // ---------- 組合職業資料 ----------
+  // 根據選擇的職業組成完整技能清單（包含共用的 PRE0）
+  function composeFor(profession: string): Skill[] {
+    if (profession === "初心者") {
+      // 初心者只有基本階段
+      return cloneSkills(BasicPrelist);
+    }
+    if (profession === "海盜") {
+      // 海盜包含共用 PRE0 + 海盜專屬階段
+      return cloneSkills([...BasicPrelist, ...pirate]);
+    }
+    if (profession === "劍士") {
+      // 劍士包含共用 PRE0 + 劍士專屬階段
+      return cloneSkills([...BasicPrelist, ...Sword]);
+    }
+    // 預設回傳基本階段
+    return cloneSkills(BasicPrelist);
+  }
+
+  // ---------- 階段上限快照 ----------
+  // 用來儲存每個階段 allNum 的初始上限（切換職業時會重建）
+  const initialNum = reactive<Record<string, number>>({});
+
+  function rebuildInitialNum(list: Skill[]) {
+    console.log("查詢", initialNum);
+    // 先清空舊資料（保持引用不變，確保響應式仍生效）
+    for (const k of Object.keys(initialNum)) delete (initialNum as any)[k];
+    // 重新根據目前 skillList 的每個 stage 填入對應上限
+    for (const s of list) (initialNum as any)[s.stage] = s.allNum;
+  }
+
+  // // 工具：計算該階段剩餘點數 = 上限 - 已分配
   const getAllNum = (stage: string): number => {
     const stageItem = skillList.find((s) => s.stage === stage);
     if (!stageItem) return 0;
@@ -106,18 +225,15 @@ export const useCounterStore = defineStore("counter", () => {
   const add = (skill: SkillContent) => {
     const stageItem = skillList.find((s) => s.content.includes(skill));
     if (!stageItem) return;
-    const capacity = initialNum[stageItem.stage] ?? stageItem.allNum; // 初始配額
-    const allocated = stageItem.content.reduce((sum, c) => sum + c.count, 0); // 已分配總數
-    // 沒有剩餘點數，直接離開
-    if (allocated >= capacity) return;
-    // 依階段決定單項上限
+    const capacity = initialNum[stageItem.stage] ?? stageItem.allNum;
+    const allocated = stageItem.content.reduce((sum, c) => sum + c.count, 0);
+    if (allocated >= capacity) return; // 沒有剩餘點數
     const perSkillCap = stageItem.stage === "PRE0" ? 3 : 20;
     if (skill.count >= perSkillCap) return;
     skill.count++;
   };
 
   const reduce = (skill: SkillContent) => {
-    // 以技能本身逆向找到所屬階段
     const stageItem = skillList.find((s) => s.content.includes(skill));
     if (!stageItem) return;
     if (skill.count > 0) {
@@ -133,5 +249,8 @@ export const useCounterStore = defineStore("counter", () => {
     });
   };
 
-  return { skillList, add, reduce, clearAll, getAllNum, getTitle };
+  // 預設載入初心者
+  replaceSkillList(composeFor("初心者"));
+
+  return { skillList, add, reduce, clearAll, getAllNum, getTitle, getPre };
 });

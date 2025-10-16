@@ -1,3 +1,5 @@
+export type Job = "pirate" | "warrior" | "mage" | "archer" | "thief";
+
 export interface SkillContent {
   id: string;
   name: string;
@@ -11,4 +13,5 @@ export interface Skill {
   allNum: number;
   content: SkillContent[];
 }
+
 

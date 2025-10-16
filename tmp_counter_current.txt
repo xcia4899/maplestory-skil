@@ -1,0 +1,233 @@
+﻿import { ref, reactive } from "vue";
+import { defineStore } from "pinia";
+import type { SkillContent, Skill } from "@/types/skill";
+
+export const useCounterStore = defineStore("counter", () => {
+  const BasicPrelist = [
+    {
+      stage: "PRE0",
+      title: "?嚙踝蕭???,",
+      allNum: 6,
+      content: [
+        {
+          id: "pre00-01",
+          name: "憳拙窄銝",
+          count: 0,
+          img: new URL("@/assets/skil/10001.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre00-02",
+          name: "蝝窄銝",
+          count: 0,
+          img: new URL("@/assets/skil/10002.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre00-03",
+          name: "?嚙賢窄銝",
+          count: 0,
+          img: new URL("@/assets/skil/10003.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
+
+  const pirate = [
+    {
+      stage: "PRE1",
+      title: "瘚瘀蕭?銋楝",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "蝝窄銝",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "擳蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "?嚙踝蕭?瘚瘀蕭?",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10010.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10011.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "蝡蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10012.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
+
+  const Sword = [
+    {
+      stage: "PRE1",
+      title: "?ㄚ銋楝",
+      allNum: 50,
+      content: [
+        {
+          id: "pre01-01",
+          name: "蝝窄銝",
+          count: 0,
+          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-02",
+          name: "擳蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre01-03",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+        },
+      ],
+    },
+    {
+      stage: "PRE2",
+      title: "?嚙踝蕭?瘚瘀蕭?",
+      allNum: 60,
+      content: [
+        {
+          id: "pre02-01",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10010.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-02",
+          name: "?嚙踝蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10011.jpg", import.meta.url).href,
+        },
+        {
+          id: "pre02-03",
+          name: "蝡蕭?銝",
+          count: 0,
+          img: new URL("@/assets/skil/10012.jpg", import.meta.url).href,
+        },
+      ],
+    },
+  ];
+
+  const skillList = reactive<Skill[]>([]);
+
+  // ?瑟平鞈?敹怠?嚗????芸?暺???
+  const professionCache = new Map<string, Skill[]>();
+
+  function cloneSkills(src: Skill[]): Skill[] {
+    return src.map((s) => ({
+      ...s,
+      content: s.content.map((c) => ({ ...c })),
+    }));
+  }
+
+  function composeFor(profession: string): Skill[] {
+    if (profession === "????) {
+      return cloneSkills(BasicPrelist);
+    }
+    if (profession === "瘚瑞?") {
+      return cloneSkills([...BasicPrelist, ...pirate]);
+    }
+    if ( profession === "?ㄚ") {
+      return cloneSkills([...BasicPrelist, ...Sword]);
+    }
+    return cloneSkills(BasicPrelist);
+  }
+
+  // 瘥?畾萎??翰?改?????遣嚗?  const initialNum = reactive<Record<string, number>>({});
+
+  function rebuildInitialNum(list: Skill[]) {
+    for (const k of Object.keys(initialNum)) delete (initialNum as any)[k];
+    for (const s of list) (initialNum as any)[s.stage] = s.allNum;
+  }
+
+  function replaceSkillList(next: Skill[]) {
+    skillList.splice(0, skillList.length, ...next);
+    rebuildInitialNum(skillList);
+  }
+
+  // ?交???豢??瑟平????  const getPre = (profession: string) => {
+    let next = professionCache.get(profession);
+    if (!next) {
+      next = composeFor(profession);
+      professionCache.set(profession, next);
+    }
+    replaceSkillList(next);
+    console.log("?湔敺???", skillList);
+  };
+
+  // 撌亙嚗?蝞府?挾?拚?暺 = 銝? - 撌脣???  const getAllNum = (stage: string): number => {
+    const stageItem = skillList.find((s) => s.stage === stage);
+    if (!stageItem) return 0;
+    const allocated = stageItem.content.reduce((sum, c) => sum + c.count, 0);
+    const capacity = initialNum[stage] ?? stageItem.allNum;
+    const remain = capacity - allocated;
+    return remain > 0 ? remain : 0;
+  };
+
+  // ???挾璅?
+  const getTitle = (stage: string): string => {
+    const stageItem = skillList.find((s) => s.stage === stage);
+    return stageItem?.title || "\u672A\u8F49\u8077";
+  };
+
+  const add = (skill: SkillContent) => {
+    const stageItem = skillList.find((s) => s.content.includes(skill));
+    if (!stageItem) return;
+    const capacity = initialNum[stageItem.stage] ?? stageItem.allNum;
+    const allocated = stageItem.content.reduce((sum, c) => sum + c.count, 0);
+    if (allocated >= capacity) return; // 瘝??拚?暺
+    const perSkillCap = stageItem.stage === "PRE0" ? 3 : 20;
+    if (skill.count >= perSkillCap) return;
+    skill.count++;
+  };
+
+  const reduce = (skill: SkillContent) => {
+    const stageItem = skillList.find((s) => s.content.includes(skill));
+    if (!stageItem) return;
+    if (skill.count > 0) {
+      skill.count--;
+    }
+  };
+
+  const clearAll = () => {
+    skillList.forEach((stage) => {
+      stage.content.forEach((skill) => {
+        skill.count = 0;
+      });
+    });
+  };
+
+  // ?身頛????  replaceSkillList(composeFor("????));
+
+  return { skillList, add, reduce, clearAll, getAllNum, getTitle, getPre };
+});
+
