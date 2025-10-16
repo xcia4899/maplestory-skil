@@ -12,11 +12,14 @@
 #footer {
   //   width: 100%;
   position: fixed;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
   background-color: #ffffff4d;
   // backdrop-filter: blur(20px);
   @include bgBlur(8px);
-  inset: auto 0 0px auto;
-  padding: 16px;
+  inset: auto 0 0px 0;
+  padding: 8px 16px;
   text-align: center;
 }
 </style>
