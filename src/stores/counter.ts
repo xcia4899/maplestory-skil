@@ -32,59 +32,61 @@ export const useCounterStore = defineStore("counter", () => {
     },
   ];
 
-  const pirate = [
-    {
-      stage: "PRE1",
-      title: "海盜之路",
-      allNum: 50,
-      content: [
-        {
-          id: "pre01-01",
-          name: "炸彈丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
-        },
-        {
-          id: "pre01-02",
-          name: "魔龍丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
-        },
-        {
-          id: "pre01-03",
-          name: "子彈丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
-        },
-      ],
-    },
-    {
-      stage: "PRE2",
-      title: "老手海盜?",
-      allNum: 60,
-      content: [
-        {
-          id: "pre02-01",
-          name: "土龍丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10010.jpg", import.meta.url).href,
-        },
-        {
-          id: "pre02-02",
-          name: "章魚丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10011.jpg", import.meta.url).href,
-        },
-        {
-          id: "pre02-03",
-          name: "海鷗丟擲",
-          count: 0,
-          img: new URL("@/assets/skil/10012.jpg", import.meta.url).href,
-        },
-      ],
-    },
-  ];
-  const Sword = [
+  let pirate: any[] = [];
+
+  // [
+  //   {
+  //     stage: "PRE1",
+  //     title: "海盜之路",
+  //     allNum: 50,
+  //     content: [
+  //       {
+  //         id: "pre01-01",
+  //         name: "炸彈丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10005.jpg", import.meta.url).href,
+  //       },
+  //       {
+  //         id: "pre01-02",
+  //         name: "魔龍丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10006.jpg", import.meta.url).href,
+  //       },
+  //       {
+  //         id: "pre01-03",
+  //         name: "子彈丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10007.jpg", import.meta.url).href,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     stage: "PRE2",
+  //     title: "老手海盜?",
+  //     allNum: 60,
+  //     content: [
+  //       {
+  //         id: "pre02-01",
+  //         name: "土龍丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10010.jpg", import.meta.url).href,
+  //       },
+  //       {
+  //         id: "pre02-02",
+  //         name: "章魚丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10011.jpg", import.meta.url).href,
+  //       },
+  //       {
+  //         id: "pre02-03",
+  //         name: "海鷗丟擲",
+  //         count: 0,
+  //         img: new URL("@/assets/skil/10012.jpg", import.meta.url).href,
+  //       },
+  //     ],
+  //   },
+  // ];
+  const sword = [
     {
       stage: "PRE1",
       title: "劍士之路",
@@ -371,12 +373,24 @@ export const useCounterStore = defineStore("counter", () => {
 
   onMounted(async () => {
     try {
-      const res = await axios.get("data/skills/pirate.json");
-      console.log("載入成功:", res);
+      const url = `${import.meta.env.BASE_URL}data/skills/pirate.json`;
+      const { data } = await axios.get<Skill[]>(url);
+
+      const hydrated = data.map((s) => ({
+        ...s,
+        content: s.content.map((c) => ({
+          ...c,
+          img: new URL(`../assets/skil/${c.img}`, import.meta.url).href,
+        })),
+      }));
+
+      pirate = hydrated;
+      console.log("載入成功:", pirate);
     } catch (err) {
       console.error("載入失敗:", err);
     }
   });
+
   // loadPirateJson()
   // 職業資料快取（保留各自加點紀錄）
   const professionCache = new Map<string, Skill[]>();
@@ -427,7 +441,7 @@ export const useCounterStore = defineStore("counter", () => {
     }
     if (profession === "劍士") {
       // 劍士包含共用 PRE0 + 劍士專屬階段
-      return cloneSkills([...BasicPrelist, ...Sword]);
+      return cloneSkills([...BasicPrelist, ...sword]);
     }
     if (profession === "法師") {
       // 劍士包含共用 PRE0 + 劍士專屬階段
