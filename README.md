@@ -36,31 +36,6 @@
 - ✅ 結構化型別 (`Skill`, `SkillContent`)  
 
 ---
-## 📂 專案結構
-src/
-├─ assets/
-├─ components/
-├─ pages/
-│  ├─ about/
-│  │  └─ about.vue
-│  └─ home/
-│     ├─ components/
-│     │  └─ Content.vue
-│     └─ subpages/
-│        ├─ Skill.vue
-│        └─ index.vue
-├─ router/
-│  └─ index.ts
-├─ stores/
-│  └─ counter.ts
-├─ styles/
-│  ├─ main.scss
-│  ├─ mixins.scss
-│  └─ variables.scss
-├─ types/
-│  └─ skill.ts
-└─ App.vue
----
 
 ## 🧭 路由結構
 
